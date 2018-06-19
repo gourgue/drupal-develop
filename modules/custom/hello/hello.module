@@ -1,0 +1,30 @@
+<?php
+// function hello_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+// 	drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
+// 	//kint($route_match);
+
+// }
+
+/**
+ * Implements hook_cron().
+ */
+function hello_cron() {
+
+	\Drupal::logger('cron_example')
+      ->notice('cron_example ran');
+    if (\Drupal::state()
+      ->get('cron_example_show_status_message')) {
+      \Drupal::messenger()
+        ->addMessage(t('cron_example executed at %time', [
+        '%time' => date_iso8601(REQUEST_TIME),
+      ]));
+    }
+}
+
+
+function hello_user_login($account) {
+
+	$user = $account->getUsername();
+	drupal_set_message(t('welcome ' . $user), 'status');
+  
+}
